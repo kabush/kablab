@@ -20,7 +20,7 @@ disp(str);
 % log the string
 str=[str,'\r\n'];
 try
-    file_obj=fopen(log_file,'w');
+    file_obj=fopen(log_file,'a');
     fprintf(file_obj,str);
     fclose(file_obj);
     success=1;
