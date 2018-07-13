@@ -44,6 +44,3 @@ feature=basisVs*img';
 feature=feature'; %each row is a separate brain img as before (and
                   %cols are coords, as before)
 
-
-
-
