@@ -7,6 +7,14 @@ function [tst_out,tst_trg,tst_hd,betas,stats] = classify_loocv(img,labels,subj_l
 %
 %   OUPUTS
 
+
+% ----------------------------------------
+% TICKET  Create intra and inter subject 
+% LOOCV variants of the classification 
+% code and clean-up code base. See regression
+% codes for examples
+% ----------------------------------------
+
 %%
 %% Assign default values for optional arguments
 %%
