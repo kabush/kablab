@@ -18,14 +18,14 @@ function scr = scr_preproc(proj,TRs,data)
 %    Staib et al., 2015
 
 %select appropriate biopac channel
-data = data(:,proj.param.chan_scr);
+data = data(:,proj.param.physio.chan_scr);
 
 %find end of run in scr channel time units
-end_of_run=TRs.*proj.param.TR.*proj.param.hz_scr; %%num TRs, s/TR, samples/s = total samples
+end_of_run=TRs.*proj.param.mri.TR.*proj.param.physio.hz_scr; %%num TRs, s/TR, samples/s = total samples
 data = data(1:end_of_run);
 
 % median filter 10ms either side of data point (Bach 2015).
-ten_ms = round(proj.param.hz_scr*proj.param.filt_scr_med_samp);
+ten_ms = round(proj.param.physio.hz_scr*proj.param.physio.filt_scr_med_samp);
 desamp_seq = (ten_ms+1):(numel(data)-ten_ms);
 desamp_vec=zeros(numel(data),1);
 for i=1:numel(desamp_seq)
@@ -45,9 +45,9 @@ data=data-start_mean;
 
 %butterworth filter:  butter(order,[high low]), low must be
 %less than half of sampling rate (1000Hz or .001)
-half_samp=proj.param.hz_scr/2;
-high = proj.param.filt_scr_high;
-low = proj.param.filt_scr_low;
+half_samp=proj.param.physio.hz_scr/2;
+high = proj.param.physio.filt_scr_high;
+low = proj.param.physio.filt_scr_low;
 
 %define Butterworth filter
 [B A]=butter(1,[high/half_samp low/half_samp]); %"for GLMs, high pass
@@ -58,7 +58,7 @@ low = proj.param.filt_scr_low;
                                                 %better to me
 
 %apply filter
-if(proj.param.filt_scr_type==1)
+if(proj.param.physio.filt_scr_type==1)
     %unidirectional
     data=filter(B,A,data);
 else
@@ -67,7 +67,7 @@ else
 end
 
 %now downsample
-data_desamp=data(1:(proj.param.TR*proj.param.hz_scr):end);
+data_desamp=data(1:(proj.param.mri.TR*proj.param.physio.hz_scr):end);
 
 %convert values to a standard score
 scr=zscore(data_desamp);

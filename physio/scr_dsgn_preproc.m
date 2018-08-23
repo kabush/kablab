@@ -28,8 +28,8 @@ function [prime_dsgn,other_dsgn] = scr_dsgn_preproc(proj,n_tr,stim_times)
 %    Bach et al, 2013
 %    Staib et al., 2015
 
-n_hirez = proj.param.hirez;
-TR = proj.param.TR;
+n_hirez = proj.param.betas.hirez;
+TR = proj.param.mri.TR;
 
 %% Build hi-resolution kernel (scralyze toolbox)
 kernel = scr_bf_crf(TR/n_hirez);
@@ -68,12 +68,12 @@ for i=1:numel(stim_times)
 
     %%filter design
     half_samp=n_hirez/2;
-    high = proj.param.filt_scr_high;
-    low = proj.param.filt_scr_low;
+    high = proj.param.physio.filt_scr_high;
+    low = proj.param.physio.filt_scr_low;
     [B A] = butter(1,[high/half_samp low/half_samp]);
     
     %%apply filter
-    if(proj.param.filt_scr_type==1)
+    if(proj.param.physio.filt_scr_type==1)
         %unidirectional
         prime_scr_fltr(i,:) = filter(B,A,prime_scr(i,:));
         other_scr_fltr(i,:) = filter(B,A,other_scr(i,:));
