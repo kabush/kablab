@@ -68,12 +68,12 @@ for i=1:numel(stim_times)
 
     %%filter design
     half_samp=n_hirez/2;
-    high = proj.param.physio.filt_scr_high;
-    low = proj.param.physio.filt_scr_low;
+    high = proj.param.physio.scr.filt_high;
+    low = proj.param.physio.scr.filt_low;
     [B A] = butter(1,[high/half_samp low/half_samp]);
     
     %%apply filter
-    if(proj.param.physio.filt_scr_type==1)
+    if(proj.param.physio.scr.filt_type==1)
         %unidirectional
         prime_scr_fltr(i,:) = filter(B,A,prime_scr(i,:));
         other_scr_fltr(i,:) = filter(B,A,other_scr(i,:));

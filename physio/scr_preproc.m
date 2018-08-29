@@ -25,7 +25,7 @@ end_of_run=TRs.*proj.param.mri.TR.*proj.param.physio.hz_scr; %%num TRs, s/TR, sa
 data = data(1:end_of_run);
 
 % median filter 10ms either side of data point (Bach 2015).
-ten_ms = round(proj.param.physio.hz_scr*proj.param.physio.filt_scr_med_samp);
+ten_ms = round(proj.param.physio.hz_scr*proj.param.physio.scr.filt_med_samp);
 desamp_seq = (ten_ms+1):(numel(data)-ten_ms);
 desamp_vec=zeros(numel(data),1);
 for i=1:numel(desamp_seq)
@@ -46,8 +46,8 @@ data=data-start_mean;
 %butterworth filter:  butter(order,[high low]), low must be
 %less than half of sampling rate (1000Hz or .001)
 half_samp=proj.param.physio.hz_scr/2;
-high = proj.param.physio.filt_scr_high;
-low = proj.param.physio.filt_scr_low;
+high = proj.param.physio.scr.filt_high;
+low = proj.param.physio.scr.filt_low;
 
 %define Butterworth filter
 [B A]=butter(1,[high/half_samp low/half_samp]); %"for GLMs, high pass
@@ -58,7 +58,7 @@ low = proj.param.physio.filt_scr_low;
                                                 %better to me
 
 %apply filter
-if(proj.param.physio.filt_scr_type==1)
+if(proj.param.physio.scr.filt_type==1)
     %unidirectional
     data=filter(B,A,data);
 else
