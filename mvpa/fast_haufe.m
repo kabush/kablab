@@ -59,9 +59,9 @@ function pattern = fast_haufe(data,weights,Nbricks)
         data_cov = (data(:,ids)'*data)/(n_samples-1);
         pattern_unscaled(ids,1) = data_cov * weights;
 
-        %%Progress report
-        backstr = repmat('\b',1,20);
-        fprintf([backstr '%03.0f percent finished'],100*(max(ids)/n_dim))
+        % %%Progress report
+        % backstr = repmat('\b',1,20);
+        % fprintf([backstr '%03.0f percent finished'],100*(max(ids)/n_dim))
 
     end
     
