@@ -35,8 +35,8 @@ function pattern = fast_haufe(data,weights,Nbricks)
     
     %%Note, doing it columnwise b/c too big to fit in memory 
     %%using data'*data (Ndim x Ndim matrix)
-    fprintf(repmat(' ',1,20))
-    backstr = repmat('\b',1,20);
+    % fprintf(repmat(' ',1,20))
+    % backstr = repmat('\b',1,20);
 
     %%
     %% Set-up bricks
