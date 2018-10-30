@@ -65,7 +65,7 @@ function pattern = fast_haufe(data,weights,Nbricks)
 
     end
     
-    fprintf('\ndone.\n')
+    % fprintf('\ndone.\n')
     pattern = pattern_unscaled / scale_param; % like cov(X)*W * inv(W'*X')
        
  end
