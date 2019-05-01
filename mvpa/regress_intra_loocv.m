@@ -1,4 +1,4 @@
-function [tst_out,tst_trg,tst_hd,mdl,stats] = regress_intra_loocv(img,scores,kernel)
+function [tst_out,tst_trg,mdl,stats] = regress_intra_loocv(img,scores,kernel)
 % REGRESS_INTRA_LOOCV conducts cross-validation using svm via the specified kernel
 %
 %   [...] = REGRESS_INTRA_LOOCV(img,scores,kernel)
@@ -16,7 +16,6 @@ nonzero_ids = find(mu>0);
 
 %% Allocate storage
 tst_out = [];
-tst_hd = [];
 tst_trg = [];
 betas = [];
 stats = struct();
@@ -30,11 +29,6 @@ if(numel(nonzero_ids)>0)
     %% ----------------------------------------
     %% for i=1:numel(tst_ids)
     parfor i=1:numel(tst_ids)
-        
-    %     if mod(i,10)==0
-    %         i
-    %     end
-
 
         %%Get the test id
         tst_id = tst_ids(i);
@@ -63,9 +57,11 @@ stats.rho = rho;
 stats.rho_p = p;
 
 [b stat] = robustfit(tst_out,tst_trg);
-stats.b = b(2);
-stats.b_p = stat.p(2);
-    
+stats.b1 = b(2);
+stats.b0 = b(1);
+stats.b1_p = stat.p(2);
+stats.b0_p = stat.p(1);
+
 %% Compute mean over all CV models
 mdl.betas = mean(betas,1);
 mdl.ids = nonzero_ids;
