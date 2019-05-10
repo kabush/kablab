@@ -1,7 +1,11 @@
-function [map_nii] = build_nii_from_gm_mask(map,gm_mask,gm_ids)
+function [map_nii] = build_beta_nii_from_gm_mask(map,gm_mask,gm_ids)
+
+% ***TICKET***: build one function that does both single and beta
+% series reformation (should be this one but need to unit test and
+% document
 
 %% Generate a nifti file of data from a grey matter mask nifti
-Nmaps = 1; %There is only a single map in the map file
+Nmaps = size(map,2); %num of maps is the num of beta series
 
 %% Use grey matter mask as a template for storage
 %% this is necessary b/c of complex header info
@@ -12,10 +16,8 @@ brain_size = size(gm_mask.img);
 full_map = zeros(Nmaps,brain_size(1)*brain_size(2)* ...
                             brain_size(3));
 
-size(full_map)
-
 %% Load the svm coefficients into the correct 2-d coordinates
-full_map(:,gm_ids)=map;
+full_map(:,gm_ids)=map';
 
 %% Reform the correct anatomical 3-d structure of the nifti image
 tmp_shape = reshape(full_map,Nmaps,brain_size(1),brain_size(2),brain_size(3));
