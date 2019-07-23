@@ -12,8 +12,6 @@ brain_size = size(gm_mask.img);
 full_map = zeros(Nmaps,brain_size(1)*brain_size(2)* ...
                             brain_size(3));
 
-size(full_map)
-
 %% Load the svm coefficients into the correct 2-d coordinates
 full_map(:,gm_ids)=map;
 
