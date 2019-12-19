@@ -27,7 +27,7 @@ if(numel(nonzero_ids)>0)
     %% ----------------------------------------
     %% This is intra-subject LOOCV    
     %% ----------------------------------------
-    %% for i=1:numel(tst_ids)
+    % for i=1:numel(tst_ids)
     parfor i=1:numel(tst_ids)
 
         %%Get the test id
