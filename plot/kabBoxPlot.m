@@ -2,7 +2,7 @@ function kabBoxPlot(y,x,labels,colors,jitter)
 
     markersize = 60;
     extra = jitter/8;
-    greyColor = colors(size(colors,1),:)
+    greyColor = colors(size(colors,1),:);
 
     % figure(1)
     % set(gcf,'color','w');
